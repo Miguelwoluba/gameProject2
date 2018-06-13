@@ -46,4 +46,25 @@
 	<button type="submit">Submit</button>
 </form>
 
+{{!-- phaser load --}}
+<div id="mainGame"></div>
+<script>
+	window.onload = function () {
+		var game = new Phaser.Game(800, 600, Phaser.CANVAS, "mainGame");
+
+		// This is where we are adding our different game states
+		game.state.add("boot", Boot);
+		game.state.add("preload", Preloader);
+		game.state.add("main", MainMenu);
+		game.state.add("level1", Level1);
+		game.state.add("level2", Level2);
+		game.state.add("gameOver", GameOver);
+
+		// We are starting our Boot State here
+		game.state.start("boot", true, false);
+
+	}
+
+</script>
+
 <script src="js/view.js" type="text/javascript"></script>
