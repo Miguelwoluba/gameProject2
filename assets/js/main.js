@@ -1,11 +1,11 @@
-MainMenu = function(game){
+Game.MainMenu = function(game){
 
 };
 
 var gameBackground;
 var button;
 
-MainMenu.prototype = {
+Game.MainMenu.prototype = {
     create: function(game){
         gameBackground = game.add.sprite(game.world.centerX, game.world.centerY -192, "menuScreen");
         var button = game.add.button(game.world.centerX, game.world.centerY, "startButton", function(){
@@ -15,8 +15,8 @@ MainMenu.prototype = {
         button.anchor.y = 0.5;    
         });
         
-        mainMusic = game.add.audio(game, "<name of background song>", 1, true)
-
+        mainMenuMusic = game.add.audio(game, "<name of background song>", 1, true)
+        mainMenuMusic.play();
     },
     update: function(game){
 
