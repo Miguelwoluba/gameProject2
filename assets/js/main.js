@@ -8,7 +8,7 @@ var button;
 Game.MainMenu.prototype = {
     create: function(game){
         gameBackground = game.add.sprite(game.world.centerX, game.world.centerY -192, "menuScreen");
-        var button = game.add.button(game.world.centerX, game.world.centerY, "startButton", function(){
+        button = game.add.button(game.world.centerX, game.world.centerY, "startButton", function(){
             this.state.start("level1", true, false);
 
         button.anchor.x = 0.5;
