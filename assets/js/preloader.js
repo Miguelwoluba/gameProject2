@@ -21,8 +21,8 @@ Preloader.prototype = {
             // At least 2-3 images for different types of platforms(think ice, regular, and spike)
             // a background image
             // spritesheet(s) for animations 
-            this.load.image('<image name>', '<image address>');
-            this.load.image('<image name>', '<image address>');
+            this.load.image('menuScreen', './assets/images/UnicornTitleImage.png');
+            this.load.image('startButton', './assets/images/Start-Button.png');
             this.load.image('<image name>', '<image address>');
             this.load.image('<image name>', '<image address>');
             this.load.spritesheet('<image name>', '<image address>', { frameWidth: 32, frameHeight: 48 });
