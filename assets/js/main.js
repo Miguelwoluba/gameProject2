@@ -8,10 +8,15 @@ var button;
 MainMenu.prototype = {
     create: function(game){
         gameBackground = game.add.sprite(game.world.centerX, game.world.centerY -192, "menuScreen");
-        this.createButton(game, "startButton", 200, 200, function(){
+        var button = game.add.button(game.world.centerX, game.world.centerY, "startButton", function(){
             this.state.start("level1", true, false);
+
+        button.anchor.x = 0.5;
+        button.anchor.y = 0.5;    
         });
-        button = game.add.button(game.world.width*0.5, game.world.height*0.5, startGame, )
+        
+        mainMusic = game.add.audio(game, "<name of background song>", 1, true)
+
     },
     update: function(game){
 
