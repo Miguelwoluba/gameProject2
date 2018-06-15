@@ -72,10 +72,10 @@ function create() {
     // stars = game.add.sprite(0,1999, 'star');
     // var move = stars.animations.add('move');
     // stars.animations.play('move',30,true);
-    stars = this.add.physicsGroup();
-    game.physics.enable(stars, Phaser.Physics.ARCADE);
-    stars.animations.add('move', [0,1,2,3,4], 5, true);
-    console.log(stars);
+    // stars = this.add.physicsGroup();
+    // game.physics.enable(stars, Phaser.Physics.ARCADE);
+    // stars.animations.add('move', [0,1,2,3,4], 5, true);
+    // console.log(stars);
 
     // stars = game.add.sprite(20,1999, 'star');
     // // stars = game.add.group();
@@ -84,20 +84,20 @@ function create() {
     var x = 0;
     var y = 0;
 
-    for (var x = 0; x < 500; x++) {
-        var star = stars.create(x * 500, game.rnd.integerInRange(100, 1999), 'star');
-        if (Math.random() > 2)
+    // for (var x = 0; x < 500; x++) {
+    //     var star = stars.create(x * 500, game.rnd.integerInRange(100, 1999), 'star');
+    //     if (Math.random() > 2)
 
-        x += 2000;
+    //     x += 2000;
 
-        if (x >= 600)
-        {
-            x = 0;
-        }
+    //     if (x >= 600)
+    //     {
+    //         x = 0;
+    //     }
 
-        y+= 0;
+    //     y+= 0;
 
-    }
+    // }
 
     platforms = this.add.physicsGroup();
 
