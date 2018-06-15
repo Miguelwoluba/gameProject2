@@ -30,7 +30,7 @@ function preload() {
     game.load.image('background', 'assets/bg.jpg');
     game.load.image('platform', 'assets/Red-UFO.png', );
     game.load.image('ice-platform', 'assets/Gray-UFO.png');
-    game.load.spritesheet('star', 'assets/StarFrames.png');
+    game.load.image('star', 'assets/Star.png');
     game.load.spritesheet('player', 'assets/UnicornFramesLarger.png', 64, 64);
  
 }
@@ -42,6 +42,8 @@ var jumpTimer = 0;
 var cursors;
 var jumpButton;
 var bg;
+var score = 0
+var scoreText;
 
 function create() {
 
@@ -65,40 +67,35 @@ function create() {
     player.animations.add('turn', [16], 20, true);
     player.animations.add('left', [8, 9, 10, 11, 12, 13, 14], 10, true); 
 
+//Star physics
 
-
+//    stars = game.add.sprite(game.world.randomX, game.world.randomY, 'star');
+    stars = this.add.physicsGroup();
+    game.physics.enable(stars, Phaser.Physics.ARCADE);
     
-
-    // stars = game.add.sprite(0,1999, 'star');
-    // var move = stars.animations.add('move');
-    // stars.animations.play('move',30,true);
-    // stars = this.add.physicsGroup();
-    // game.physics.enable(stars, Phaser.Physics.ARCADE);
-    // stars.animations.add('move', [0,1,2,3,4], 5, true);
-    // console.log(stars);
-
-    // stars = game.add.sprite(20,1999, 'star');
-    // // stars = game.add.group();
-    // // stars.enableBody = true;
-    // stars.animations.add('spin', [0,1,2,3,4], 5, true);
     var x = 0;
     var y = 0;
 
-    // for (var x = 0; x < 500; x++) {
-    //     var star = stars.create(x * 500, game.rnd.integerInRange(100, 1999), 'star');
-    //     if (Math.random() > 2)
+    for (var m = 0; m < 50; m++) {
+        var star = stars.create(m * 50, game.rnd.integerInRange(800, 1999), 'star');
+        if (Math.random())
 
-    //     x += 2000;
+        x += game.world.randomX;
 
-    //     if (x >= 600)
-    //     {
-    //         x = 0;
-    //     }
+        if (x >= 600)
+        {
+            x = 0;
+        }
 
-    //     y+= 0;
+        y+= game.world.randomY;
 
-    // }
+    }
+    star.body.collideWorldBounds = true;
 
+    stars.setAll('body.allowGravity', false);
+
+
+//Platform physics
     platforms = this.add.physicsGroup();
 
     var x = 0;
@@ -133,13 +130,15 @@ function create() {
 
     this.camera.follow(player);
 
-    scoreText = game.add.text(16,16, '', { fontSize: '32px', fill: '#000'});
+    scoreText = game.add.text(0,0, '', { fontSize: '32px', fill: '#ffffff'});
+    scoreText.fixedToCamera = true;
+    scoreText.cameraOffset.setTo(0,0);
+
     cursors = game.input.keyboard.createCursorKeys();
     jumpButton = game.input.keyboard.addKey(Phaser.Keyboard.SPACEBAR);
 
 }
-
-
+ 
 function wrapPlatform (platform) {
 
     if (platform.body.velocity.x < 0 && platform.x <= -160)
@@ -162,6 +161,13 @@ function setFriction (player, platform) {
 
 }
 
+function collectStars (player, stars) {
+    stars.kill();
+
+    score += 10;
+    scoreText.text = 'Score: ' + score;
+
+}
 function update() {
 
     // game.physics.arcade.collide(player, layer);
@@ -174,6 +180,9 @@ function update() {
     //  Do this AFTER the collide check, or we won't have blocked/touching set
     var standing = player.body.blocked.down || player.body.touching.down;
     
+
+    game.physics.arcade.overlap(player, stars, collectStars, null, this);
+
     player.body.velocity.x = 0;
 
     if (cursors.left.isDown)
@@ -218,9 +227,13 @@ function update() {
     if (jumpButton.isDown && standing && game.time.now > jumpTimer)
     {
         player.body.velocity.y = -275;
-        jumpTimer = game.time.now + 900;
+        jumpTimer = game.time.now + -400;
     }
 
+    if (score === 500) {
+        alert('You win!');
+        score = 0;
+    }
 
 
 }
